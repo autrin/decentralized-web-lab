@@ -1,0 +1,9 @@
+[package]
+name = "rust-libp2p-ping"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+libp2p = { version = "0.55, features = ["tcp", "noise", "ping", "yamux", "tokio"] }
+tokio  = { version = "1", features = ["full"] }
+tracing-subscriber = { version  = "0.3", features = ["env-filter"] }
