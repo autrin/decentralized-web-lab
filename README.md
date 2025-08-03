@@ -10,6 +10,3 @@ uncensorable-internet/
 ├── phase2-libp2p-ping/  ← Cargo.toml, src/
 Note: this roadmap continues as I add more phases.
 ```
-
-How to run:
- source $HOME/.cargo/env 
