@@ -8,3 +8,6 @@ uncensorable-internet/
 ├── phase4-raft-kv-store/ ← python or Rust code + README.md
 └── phase5-onion-router/  ← onion routing prototype + README.md
 ```
+
+How to run:
+ source $HOME/.cargo/env 
