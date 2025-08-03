@@ -1,5 +1,5 @@
 [package]
-    name = "rust-libp2p-tutorial"
+    name = "rust-libp2p"
     version = "0.1.0"
     edition = "2021"
 
