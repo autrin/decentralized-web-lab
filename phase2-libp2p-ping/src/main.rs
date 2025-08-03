@@ -16,7 +16,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
             noise::Config::new,
             yamux::Config::default,
         )?
-        .with_behaviour(|_| ping::Behaviour::default())?;
+        .with_behaviour(|_| ping::Behaviour::default())?
+        .build();
 
     Ok(())
 }
