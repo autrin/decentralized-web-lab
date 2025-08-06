@@ -1,6 +1,6 @@
 use std::{error::Error, time::Duration};
 
-use libp2p::{noise, ping, tcp, yamux};
+use libp2p::{noise, ping, tcp, yamux, Multiaddr};
 use tracing_subscriber::EnvFilter;
 
 #[tokio::main]
@@ -21,5 +21,12 @@ async fn main() -> Result<(), Box<dyn Error>> {
         })
         .build();
 
+    swarm.listen_on("/ip4/0.0.0.0/tcp/0".parse()?)?; // listen to all interfaces and a random os-assigned port
+    
+    if let Some(addr) = std::env::args().nth(1) { // Dial the peer identified by multi-address
+        let remote: Multiaddr = addr.parse()?;
+        swarm.dial(remote)?;
+        println!("Dialed {addr}")
+    }
     Ok(())
 }
