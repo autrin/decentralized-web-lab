@@ -1,4 +1,4 @@
-use std::error::Error;
+use std::{error::Error, time::Duration};
 
 use libp2p::{noise, ping, tcp, yamux};
 use tracing_subscriber::EnvFilter;
