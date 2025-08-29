@@ -1,6 +1,7 @@
 use std::{error::Error, time::Duration};
 
-use libp2p::{noise, ping, tcp, yamux, Multiaddr};
+use futures::prelude::*;
+use libp2p::{noise, ping, swarm::SwarmEvent, tcp, yamux, Multiaddr};
 use tracing_subscriber::EnvFilter;
 
 #[tokio::main]
