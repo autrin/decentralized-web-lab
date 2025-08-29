@@ -7,6 +7,6 @@ A hands-on sandbox exploring libp2p, IPFS, simple mesh and more.
 uncensorable-internet/
 ├── README.md            ← high-level roadmap & links to each phase
 ├── phase1-socket-demo/  ← client.py, server.py
-├── phase2-libp2p-ping/  
+├── phase2-libp2p-ping/  ← main.rs, Cargo.toml
 Note: this roadmap continues as I add more phases.
 ```
