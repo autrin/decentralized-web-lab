@@ -28,5 +28,11 @@ async fn main() -> Result<(), Box<dyn Error>> {
         swarm.dial(remote)?;
         println!("Dialed {addr}")
     }
-    Ok(())
+    loop{ // listen for incoming connections
+        match swarm.select_next_some().await {
+            SwarmEvent::NewListenAddr {address, ..} => println!("Listening on {address:?}"),
+            SwarmEvent::Behaviour(event) => println!("{event:?}"),
+            _ => {}
+        }
+    }
 }
