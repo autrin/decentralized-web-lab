@@ -8,5 +8,6 @@ uncensorable-internet/
 ├── README.md            ← high-level roadmap & links to each phase
 ├── phase1-socket-demo/  ← client.py, server.py
 ├── phase2-libp2p-ping/  ← main.rs, Cargo.toml
+├── phase3-cjdns-mesh/   ← docker-compose.yml
 Note: this roadmap continues as I add more phases.
 ```
