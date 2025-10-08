@@ -1,0 +1,15 @@
+{
+  "name": "phase2-part3-nodejs-ipfs",
+  "version": "1.0.0",
+  "description": "Node.js script to add file to IPFS and log hash",
+  "main": "add-to-ipfs.js",
+  "scripts": {
+    "start": "node add-to-ipfs.js"
+  },
+  "dependencies": {
+    "ipfs-http-client": "^60.0.1"
+  },
+  "keywords": ["ipfs", "decentralized", "web"],
+  "author": "",
+  "license": "MIT"
+}
