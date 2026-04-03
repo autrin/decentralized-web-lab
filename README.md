@@ -5,9 +5,8 @@ A hands-on sandbox exploring libp2p, IPFS, simple mesh and more.
 
 ```
 uncensorable-internet/
-├── README.md            ← high-level roadmap & links to each phase
-├── phase1-socket-demo/  ← client.py, server.py
-├── phase2-libp2p-ping/  ← main.rs, Cargo.toml
-├── phase3-cjdns-mesh/   ← docker-compose.yml
+├── phase1-socket-demo/  ← Basic networking: client server
+├── phase2-libp2p-ping/  ← ProtoSchool "Ping"
+├── phase3-cjdns-mesh/  ← safe mesh-network simulation
 Note: this roadmap continues as I add more phases.
 ```
