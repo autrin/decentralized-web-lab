@@ -31,9 +31,6 @@ class Raft():
         voted = node.vote
         self.nodes[voted.get_id()].votes += 1
 
-  def vote(self):
-    pass
-
   def set_leader(self):
     votes = 0
     for node in self.nodes:
