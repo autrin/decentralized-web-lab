@@ -5,8 +5,9 @@ A hands-on sandbox exploring libp2p, IPFS, simple mesh and more.
 
 ```
 uncensorable-internet/
-├── phase1-socket-demo/  ← Basic networking: client server
-├── phase2-libp2p-ping/  ← ProtoSchool "Ping"
-├── phase3-cjdns-mesh/  ← safe mesh-network simulation
+├── phase1-socket-demo/   ← Basic networking: client server
+├── phase2-libp2p-ping/   ← ProtoSchool "Ping"
+├── phase3-cjdns-mesh/    ← safe mesh-network simulation
+├── phase4-raft-kv-store/ ← Distributed Protocols & Fault Tolerance 
 Note: this roadmap continues as I add more phases.
 ```
