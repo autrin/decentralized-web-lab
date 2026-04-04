@@ -15,21 +15,18 @@ import sys
 import termios
 import time
 import tty
-
 class State(Enum):
   FOLLOWER = "follower"
   CANDIDATE = "candidate"
   LEADER = "leader"
-
 class Node:
   def __init__(self, id, state):
     self.id = id
     self.state = state
-    self.vote = None
+    self.vote = Node
     self.votes = 0
     self.peers = []
     self.leader = None
-
   def get_id(self):
     return self.id
   
@@ -38,10 +35,8 @@ class Node:
   
   def set_state(self, state):
     self.state = state
-
   def set_leader(self, leader):
     self.leader = leader
-
   def set_vote(self, vote):
     self.vote = vote
     
@@ -49,14 +44,12 @@ class Raft():
   def __init__(self, nodes):
     self.nodes = nodes
     self.current_term = 0
-
   def apply_vote(self):
     for node in self.nodes:
       if node.get_state() == State.FOLLOWER: # you can vote
         voted = node.vote
         self.nodes[voted.get_id()].votes += 1
     self.set_leader()
-
   def vote(self):
     # reset votes from previous election
     for node in self.nodes:
@@ -66,13 +59,11 @@ class Raft():
       node.set_vote(self.nodes[rand.randint(0, 3)])
       print(f"Node {node.get_id()} voted for {node.vote.get_id()}")
     self.apply_vote()
-
   def set_leader(self):
     for node in self.nodes:
         if node.get_state() == State.LEADER:
           node.set_state(State.FOLLOWER)
         node.set_leader(None)
-
     max_votes = 0
     leader = Node(-1, State.LEADER)
     for node in self.nodes:
@@ -85,19 +76,15 @@ class Raft():
     for node in self.nodes:
       if node.get_state() != State.LEADER:
         node.set_leader(leader)
-
 def should_quit(timeout=0.1):
   ready, _, _ = select.select([sys.stdin], [], [], timeout)
   if not ready:
     return False
-
   return sys.stdin.read(1).lower() == 'q'
-
 def main():
   print("Press 'q' to quit.")
   stdin_fd = sys.stdin.fileno()
   old_settings = termios.tcgetattr(stdin_fd)
-
   try:
     tty.setcbreak(stdin_fd)
     try:
@@ -120,6 +107,6 @@ def main():
         raise e
   finally:
     termios.tcsetattr(stdin_fd, termios.TCSADRAIN, old_settings)
-
 if __name__ == "__main__":
   main()
+  
