@@ -57,6 +57,9 @@ class Raft():
     self.set_leader()
 
   def vote(self):
+    # reset votes from previous election
+    for node in self.nodes:
+      node.votes = 0
     # vote randomly
     for node in self.nodes:
       node.set_vote(self.nodes[rand.randint(0, 3)])
@@ -64,19 +67,23 @@ class Raft():
     self.apply_vote()
 
   def set_leader(self):
-    votes = 0
+    for node in self.nodes:
+        if node.get_state() == State.LEADER:
+          node.set_state(State.FOLLOWER)
+        node.set_leader(None)
+
+    max_votes = 0
     leader = Node(-1, State.LEADER)
     for node in self.nodes:
       # the leader is the node with highest votes
-      if node.votes > votes:
-        votes = node.votes
+      if node.votes > max_votes:
+        max_votes = node.votes
         leader = node
-        node.set_state(State.LEADER)
+    leader.set_state(State.LEADER)
     print(f"leader is {leader.get_id()}")
     for node in self.nodes:
       if node.get_state() != State.LEADER:
         node.set_leader(leader)
-
 
 def should_quit(timeout=0.1):
   ready, _, _ = select.select([sys.stdin], [], [], timeout)
