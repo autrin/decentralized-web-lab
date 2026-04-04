@@ -54,7 +54,7 @@ class Raft():
   def vote(self):
     # vote randomly
     for node in self.nodes:
-      node.set_vote(rand.randint(0, 3))
+      node.set_vote(self.nodes[rand.randint(0, 3)])
       print(f"Node {node.get_id()} voted for {node.vote.get_id()}")
     self.apply_vote()
 
