@@ -73,7 +73,19 @@ class Raft():
         node.set_leader(leader)
 
 def main():
-  nodes = [Node(0, State.FOLLOWER), Node(1, State.FOLLOWER), Node(2, State.FOLLOWER), Node(3, State.FOLLOWER)]
-  raft = Raft(nodes)
-  raft.vote()
-  return 0
+  try:
+    nodes = [Node(0, State.FOLLOWER), Node(1, State.FOLLOWER), Node(2, State.FOLLOWER), Node(3, State.FOLLOWER)]
+  except Exception as e:
+    print("Error creating nodes: ", e)
+    return -1
+  try:
+    raft = Raft(nodes)
+    print("Starting voting...")
+    raft.vote()
+    return 0
+  except Exception as e:
+    print("Error running Raft: ", e)
+    return -1
+
+if __name__ == "__main__":
+  main()
