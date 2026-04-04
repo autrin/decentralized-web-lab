@@ -9,6 +9,11 @@ A 3-node cluster that survives killing one process and still serves reads.
 """
 from enum import Enum
 import random as rand
+import select
+import sys
+import termios
+import time
+import tty
 
 class State(Enum):
   FOLLOWER = "follower"
@@ -72,20 +77,41 @@ class Raft():
       if node.get_state() != State.LEADER:
         node.set_leader(leader)
 
+
+def should_quit(timeout=0.1):
+  ready, _, _ = select.select([sys.stdin], [], [], timeout)
+  if not ready:
+    return False
+
+  return sys.stdin.read(1).lower() == 'q'
+
 def main():
+  print("Press 'q' to quit.")
+  stdin_fd = sys.stdin.fileno()
+  old_settings = termios.tcgetattr(stdin_fd)
+
   try:
-    nodes = [Node(0, State.FOLLOWER), Node(1, State.FOLLOWER), Node(2, State.FOLLOWER), Node(3, State.FOLLOWER)]
-  except Exception as e:
-    print("Error creating nodes: ", e)
-    return -1
-  try:
-    raft = Raft(nodes)
-    print("Starting voting...")
-    raft.vote()
-    return 0
-  except Exception as e:
-    print("Error running Raft: ", e)
-    return -1
+    tty.setcbreak(stdin_fd)
+    try:
+      nodes = [Node(0, State.FOLLOWER), Node(1, State.FOLLOWER), Node(2, State.FOLLOWER), Node(3, State.FOLLOWER)]
+    except Exception as e:
+      print("Error creating nodes: ", e)
+      raise e
+    while(True):
+      try:
+        raft = Raft(nodes)
+        print("Starting voting...")
+        election_delay = rand.randint(1, 2)
+        end_time = time.time() + election_delay
+        while time.time() < end_time:
+          if should_quit():
+            return 0
+        raft.vote()
+      except Exception as e:
+        print("Error running Raft: ", e)
+        raise e
+  finally:
+    termios.tcsetattr(stdin_fd, termios.TCSADRAIN, old_settings)
 
 if __name__ == "__main__":
   main()
